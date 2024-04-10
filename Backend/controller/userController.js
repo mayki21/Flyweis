@@ -199,7 +199,6 @@ const loginUser = async (req, res) => {
       to: phoneNumber,
       from: phoneNum
     });
-
     // Generate JWT token
     const token = jwt.sign({ userId: user._id }, process.env.tokenpass, { expiresIn: "6h" });
 
