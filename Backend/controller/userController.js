@@ -99,10 +99,12 @@ const verifyOtplogin = async (req, res) => {
 
     // Update user's otpVerified status
     await User.updateOne({ phoneNumber }, { otpVerified: true });
+    const token = jwt.sign({ userId: user._id }, process.env.tokenpass, { expiresIn: "6h" });
 
     return res.status(200).json({
       status: true,
-      message: "OTP verification successfully done"
+      message: "OTP verification successfully done",
+      token:token
     });
   } catch (error) {
     return res.status(500).json({
@@ -146,6 +148,37 @@ const registerUser = async (req, res) => {
 
 
 
+// const loginUser = async (req, res) => {
+//   try {
+//     const { phoneNumber } = req.body;
+//     const user = await User.findOne({ phoneNumber });
+
+//     if (!user) {
+//       return res.status(404).json({ message: "User not found" });
+//     }
+
+//     // Send OTP
+//     const otp = otpgen.generate(4, { lowerCaseAlphabets: false, upperCaseAlphabets: false, specialChars: false });
+//     user.otp = otp;
+//     await user.save();
+
+   
+
+//     // Send OTP to user's phone number (you can use your twilio code here)
+
+//     await twilioclient.messages.create({
+//       body: `Your OTP is ${otp}`,
+//       to: phoneNumber,
+//       from: phoneNum
+//     });
+
+//     return res.status(200).json({ message: "OTP sent to user's phone number", otp });
+//   } catch (error) {
+//     return res.status(500).json({ message: error.message });
+//   }
+// };
+
+
 const loginUser = async (req, res) => {
   try {
     const { phoneNumber } = req.body;
@@ -160,21 +193,20 @@ const loginUser = async (req, res) => {
     user.otp = otp;
     await user.save();
 
-   
-
     // Send OTP to user's phone number (you can use your twilio code here)
-
     await twilioclient.messages.create({
       body: `Your OTP is ${otp}`,
       to: phoneNumber,
       from: phoneNum
     });
 
-    return res.status(200).json({ message: "OTP sent to user's phone number", otp });
+    // Generate JWT token
+    const token = jwt.sign({ userId: user._id }, process.env.tokenpass, { expiresIn: "6h" });
+
+    return res.status(200).json({ message: "OTP sent to user's phone number", token, userDetails: user ,token:token});
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
 };
-
 
 module.exports={sendOtp,verifyOtp,registerUser,loginUser,verifyOtplogin}

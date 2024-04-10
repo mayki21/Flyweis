@@ -34,8 +34,10 @@ const upload = multer({
 // Route to add a product
 router.post('/add', upload.single('image'), addProduct);
 // Route to view a product
-// router.get('/:productId', viewProductById)
 
 router.get('/view',viewAllProducts)
+router.get('/:productId', viewProductById)
+
+
 
 module.exports = router;
