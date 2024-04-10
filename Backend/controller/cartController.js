@@ -42,7 +42,7 @@ const increaseCartItemQuantity = async (req, res) => {
     try {
       const { id } = req.params;
       const userId = req.body.userID; // Assuming the user ID is available in the request body
-      console.log("USERID===",userId)
+      // console.log("USERID===",userId)
   
       // Find and update the cart item belonging to the specified user
       await Cart.findOneAndUpdate({  userid: userId,productid:id }, { $inc: { quantity: 1 } });
