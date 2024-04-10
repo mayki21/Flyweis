@@ -1,4 +1,4 @@
-# Flyweis Assignment 
+# Flyweis Assignment 🚀 
 
 
 This project is a Node.js application that provides APIs for user management, product management, and cart functionality.
