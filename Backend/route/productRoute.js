@@ -36,4 +36,6 @@ router.post('/add', upload.single('image'), addProduct);
 // Route to view a product
 router.get('/:productId', viewProductById)
 
+router.get('/view-all',viewAllProduct)
+
 module.exports = router;
