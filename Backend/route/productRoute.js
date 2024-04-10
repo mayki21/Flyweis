@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
-const { addProduct,viewProductById } = require('../controller/productController');
+const { addProduct,viewProductById,viewAllProducts } = require('../controller/productController');
 
 // Multer storage configuration
 const storage = multer.diskStorage({
@@ -36,6 +36,6 @@ router.post('/add', upload.single('image'), addProduct);
 // Route to view a product
 router.get('/:productId', viewProductById)
 
-router.get('/view-all',viewAllProduct)
+router.get('/view-all',viewAllProducts)
 
 module.exports = router;
