@@ -5,11 +5,11 @@ const Product = require("../models/product");
 
 const addProduct = async (req, res) => {
   try {
-    const { name, description, price, category } = req.body;
+    const { name, description, price, category,rating } = req.body;
     const image = req.file.filename;
 
     // Create a new product
-    const newProduct = new Product({ name, description, price, category, image });
+    const newProduct = new Product({ name, description, price, category, image,rating });
     await newProduct.save();
 
     return res.status(201).json({ message: "Product added successfully", product: newProduct });
