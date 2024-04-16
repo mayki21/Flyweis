@@ -19,7 +19,7 @@ const addToCart = async (req, res) => {
 
 const getCartProducts = async (req, res) => {
   try {
-    const userallProducts = await Cart.find({ userid: req.body.userID }).populate("productid").populate("userid");
+    const userallProducts = await Cart.find({ userid: req.body.userID }).populate("productid")
     return res.status(200).send(userallProducts);
   } catch (error) {
     return res.status(500).send({ "msg": error.message });
