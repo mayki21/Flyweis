@@ -9,9 +9,9 @@ const app=express()
 app.use(express.json())
 
 app.use("/user",userRoute)
-
-app.use("/product",productRoute)
 app.use(auth)
+app.use("/product",productRoute)
+
 app.use("/cart",cartRoute)
 
 
