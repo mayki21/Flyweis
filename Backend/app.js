@@ -11,7 +11,6 @@ app.use(express.json())
 app.use("/user",userRoute)
 app.use(auth)
 app.use("/product",productRoute)
-
 app.use("/cart",cartRoute)
 
 
